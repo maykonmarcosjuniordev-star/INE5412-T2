@@ -1,13 +1,13 @@
-class PageInfo {
+class PageInfo
+{
+private:
+    int page_faults;
+    int page_hits;
+
 public:
     PageInfo();
-    int page_faults = 0;
-    int page_hits = 0;
-
-    void set_hit() {
-        page_hits++;
-    }
-    void set_fault() {
-        page_faults++;
-    }
+    void set_hit();
+    void set_fault();
+    int get_hit();
+    int get_fault();
 };

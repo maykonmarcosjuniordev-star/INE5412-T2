@@ -1,13 +1,30 @@
 #include <iostream>
-#include "read_file.hpp"
+#include <cstdio>
+#include <vector>
+#include "OPT.hpp"
+#include "LRU.hpp"
 
-
-int main() {
-    ReadFile file("vsim-belady.txt");
-    file.read();
-    std::vector<int> line = file.access_order;
-    for (auto& line : file.access_order) {
-        std::cout << line << std::endl;
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
+        std::cerr << "Uso: " << argv[0] << " <numero de quadros>" << std::endl;
+        return 1;
     }
+
+    // Converting to integer
+    int Nboards = std::stoi(argv[1]);
+
+    int page;
+    std::vector<int> access_order;
+    while (!feof(stdin))
+    {
+        std::cin >> page;
+        if (!std::cin.fail())
+        { // making sure it was well-suceded
+            access_order.push_back(page);
+        }
+    }
+
     return 0;
 }
