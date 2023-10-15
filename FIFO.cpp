@@ -1,34 +1,37 @@
-#include <iostream>
-#include <vector>
+#include "FIFO.hpp" // already inlcudes <vector>
 #include <queue>
 #include <unordered_set>
 
-class FIFO {
-public:
-    FIFO(const std::vector<int>& references, int num_frames) : references_(references), num_frames_(num_frames) {}
+FIFO::FIFO(const std::vector<int> &access_order,
+           int num_frames) : references(access_order),
+                             Nframes(num_frames) {}
 
-    int run() {
-        std::queue<int> frame_queue;
-        std::unordered_set<int> frame_set;
-        int page_faults = 0;
+int FIFO::run()
+{
+    std::queue<int> frame_queue;
+    // to allow search in the queue
+    std::unordered_set<int> frame_set;
+    int page_faults = 0;
 
-        for (int page : references_) {
-            if (frame_set.find(page) == frame_set.end()) {
-                if (frame_queue.size() == num_frames_) {
-                    int victim = frame_queue.front();
-                    frame_queue.pop();
-                    frame_set.erase(victim);
-                }
-                frame_queue.push(page);
-                frame_set.insert(page);
-                page_faults++;
+    for (int page : references)
+    {
+        // if page is not in frame_set
+        if (frame_set.find(page) == frame_set.end())
+        {
+            // if frame_queue is full
+            if (frame_queue.size() == static_cast<std::size_t>(Nframes))
+            {
+                // remove the first element
+                // from frame_queue
+                int victim = frame_queue.front();
+                frame_queue.pop();
+                frame_set.erase(victim);
             }
+            frame_queue.push(page);
+            frame_set.insert(page);
+            page_faults++;
         }
-
-        return page_faults;
     }
 
-private:
-    std::vector<int> references_;
-    int num_frames_;
-};
+    return page_faults;
+}

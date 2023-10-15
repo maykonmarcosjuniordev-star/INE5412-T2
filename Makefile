@@ -1,19 +1,22 @@
-# Variáveis do compilador
+# Variables for the compiler
 CC = g++
 CFLAGS = -Wall -Wextra -Werror -O3
 
-# Nome do executável
+# Name of the executable
 TARGET = simulador
 
-# Lista de arquivos objeto
-OBJS = main.o OPT.o FIFO.o LRU.o
+# List of object files
+OBJS = main.o Simulator.o OPT.o FIFO.o LRU.o
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-main.o: main.cpp OPT.hpp FIFO.hpp LRU.hpp
+main.o : main.cpp Simulator.hpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+Simulator.o: Simulator.cpp Simulator.hpp OPT.hpp FIFO.hpp LRU.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 OPT.o: OPT.cpp OPT.hpp
