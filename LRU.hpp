@@ -8,13 +8,14 @@ using namespace std;
 class LRU
 {
 private:
+    // page references
+    std::vector<int> references;
+    // number of frames
     int Nframes;
-    vector<int> references;
-    unordered_map<int, list<int>::iterator> pageTable;
-    list<int> pageList;
 
 public:
     LRU(vector<int> refs, int frames);
 
+    // simulate LRU
     int run();
 };

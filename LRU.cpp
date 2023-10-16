@@ -11,33 +11,38 @@ LRU::LRU(vector<int> refs, int frames)
 
 int LRU::run()
 {
-    int pageFaults = 0;
+    // Page Faults
+    int PF = 0;
+    unordered_map<int, list<int>::iterator> page_table;
+    list<int> pageList;
 
-    for (std::size_t i = 0; i < references.size(); i++)
+    for (int page : references)
     {
-        int page = references[i];
-
-        if (pageTable.find(page) == pageTable.end())
+        // if page is not already mapped
+        if (page_table.find(page) == page_table.end())
         {
-            pageFaults++;
+            PF++;
 
-            if (pageTable.size() == static_cast<std::size_t>(Nframes))
+            // if page_table is full
+            if (static_cast<int>(page_table.size()) == Nframes)
             {
-                int lruPage = pageList.back();
+                // take the last page on the list
+                int lru_page = pageList.back();
                 pageList.pop_back();
-                pageTable.erase(lruPage);
+                page_table.erase(lru_page);
             }
 
+            // add to the mapped pages
             pageList.push_front(page);
-            pageTable[page] = pageList.begin();
+            page_table[page] = pageList.begin();
         }
         else
         {
-            pageList.erase(pageTable[page]);
+            pageList.erase(page_table[page]);
             pageList.push_front(page);
-            pageTable[page] = pageList.begin();
+            page_table[page] = pageList.begin();
         }
     }
 
-    return pageFaults;
+    return PF;
 }

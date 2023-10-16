@@ -5,15 +5,17 @@
 class OPT
 {
 public:
-    OPT(const std::vector<int> &references,
+    OPT(const std::vector<int> &refs,
         int num_frames);
 
+    // simulate the OPT algorithm
     int run();
 
 private:
     int find_next_use(int current_pos);
 
-    std::vector<int> references_;
-    int num_frames_;
-    int num_page_faults_;
+    // page references
+    std::vector<int> references;
+    // number of frames
+    int Nframes;
 };

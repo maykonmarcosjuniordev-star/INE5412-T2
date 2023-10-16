@@ -3,38 +3,39 @@
 #include <iostream>
 #include "OPT.hpp"
 
-OPT::OPT(const std::vector<int> &references,
+OPT::OPT(const std::vector<int> &refs,
          int num_frames)
-    : references_(references),
-      num_frames_(num_frames),
-      num_page_faults_(0)
 {
+    references = refs;
+    Nframes = num_frames;
 }
 
+// returns the position of the next use of the page
 int OPT::find_next_use(int current_pos)
 {
-    for (std::size_t i = current_pos + 1; i < references_.size(); ++i)
+    for (std::size_t i = current_pos + 1; i < references.size(); ++i)
     {
-        if (references_[i] == references_[current_pos])
+        if (references[i] == references[current_pos])
         {
             return i;
         }
     }
 
-    return references_.size();
+    return references.size();
 }
 
 int OPT::run()
 {
-    std::vector<int> frames(num_frames_, -1);
-    std::vector<int> next_use(references_.size(), -1);
+    int PF = 0;
+    std::vector<int> frames(Nframes, -1);
+    std::vector<int> next_use(references.size(), -1);
 
-    for (std::size_t i = 0; i < references_.size(); ++i)
+    for (std::size_t i = 0; i < references.size(); ++i)
     {
         bool page_fault = true;
-        int page = references_[i];
+        int page = references[i];
 
-        for (int j = 0; j < num_frames_; ++j)
+        for (int j = 0; j < Nframes; ++j)
         {
             if (frames[j] == page)
             {
@@ -45,12 +46,12 @@ int OPT::run()
 
         if (page_fault)
         {
-            ++num_page_faults_;
+            PF++;
 
             bool empty_frame = false;
             int frame_to_replace = -1;
 
-            for (int j = 0; j < num_frames_; ++j)
+            for (int j = 0; j < Nframes; ++j)
             {
                 if (frames[j] == -1)
                 {
@@ -84,5 +85,5 @@ int OPT::run()
         }
     }
 
-    return num_page_faults_;
+    return PF;
 }
