@@ -1,6 +1,4 @@
 #include <vector>
-#include <algorithm>
-#include <iostream>
 
 class OPT
 {
@@ -9,10 +7,13 @@ public:
         int num_frames);
 
     // simulate the OPT algorithm
+    // Return the total number
+    // of page faults.
     int run();
 
 private:
-    int find_next_use(int current_pos);
+    // returns the position of the next use of the page
+    int find_next_use(int page, int current_pos);
 
     // page references
     std::vector<int> references;

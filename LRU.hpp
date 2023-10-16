@@ -16,6 +16,8 @@ private:
 public:
     LRU(vector<int> refs, int frames);
 
-    // simulate LRU
+    // simulate LRU algorithm
+    // Return the total number
+    // of page faults.
     int run();
 };

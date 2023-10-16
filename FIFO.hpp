@@ -12,5 +12,7 @@ public:
     FIFO(const std::vector<int> &refs, int num_frames);
 
     // simulate the FIFO algorithm
+    // Return the total number
+    // of page faults.
     int run();
 };
