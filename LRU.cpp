@@ -14,33 +14,38 @@ int LRU::run()
     // Page Faults
     int PF = 0;
     unordered_map<int, list<int>::iterator> page_table;
-    list<int> pageList;
+    list<int> page_list;
 
     for (int page : references)
     {
         // if page is not already mapped
         if (page_table.find(page) == page_table.end())
         {
+            // there is page fault
             PF++;
 
             // if page_table is full
             if (static_cast<int>(page_table.size()) == Nframes)
             {
                 // take the last page on the list
-                int lru_page = pageList.back();
-                pageList.pop_back();
+                int lru_page = page_list.back();
+                // erase from both page_table and page_list
+                page_list.pop_back();
                 page_table.erase(lru_page);
             }
 
             // add to the mapped pages
-            pageList.push_front(page);
-            page_table[page] = pageList.begin();
+            page_list.push_front(page);
+            page_table[page] = page_list.begin();
         }
-        else
+        else // page is already mapped
         {
-            pageList.erase(page_table[page]);
-            pageList.push_front(page);
-            page_table[page] = pageList.begin();
+            // move the page to the front of the list
+            page_list.erase(page_table[page]);
+            page_list.push_front(page);
+            // update the iterator
+            // (it's index in the list)
+            page_table[page] = page_list.begin();
         }
     }
 

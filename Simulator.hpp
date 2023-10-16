@@ -22,4 +22,7 @@ public:
 
     // print number of frames and references
     void parameters();
+
+    // set the number of frames
+    void set_Nframes(int num_frames);
 };

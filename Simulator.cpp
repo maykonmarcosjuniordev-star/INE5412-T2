@@ -62,3 +62,8 @@ void Simulator::parameters()
     std::cout << Nframes << " quadros\n";
     std::cout << access_order.size() << " refs\n";
 }
+
+void Simulator::set_Nframes(int num_frames)
+{
+    Nframes = num_frames;
+}
