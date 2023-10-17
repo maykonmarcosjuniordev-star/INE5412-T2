@@ -4,14 +4,15 @@
 
 #include <vector>
 
+typedef unsigned int page_t;
 class SubstitutionAlgorithm
 {
 protected:
-    std::vector<int> references;
+    std::vector<page_t> references;
     int Nframes;
 
 public:
-    SubstitutionAlgorithm(const std::vector<int> &refs, int frames)
+    SubstitutionAlgorithm(const std::vector<page_t> &refs, int frames)
         : references(refs), Nframes(frames) {}
 
     virtual ~SubstitutionAlgorithm() = default;

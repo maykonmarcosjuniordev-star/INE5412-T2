@@ -1,10 +1,10 @@
 #include "OPT.hpp"
 #include <unordered_set>
 
-OPT::OPT(const std::vector<int> &refs, int num_frames)
+OPT::OPT(const std::vector<page_t> &refs, int num_frames)
     : SubstitutionAlgorithm(refs, num_frames) {}
 
-int OPT::find_next_use(int page, int current_pos)
+int OPT::find_next_use(page_t page, int current_pos)
 {
     // Starting from the next position, search for the page.
     for (std::size_t i = current_pos + 1; i < references.size(); ++i)
@@ -24,14 +24,14 @@ int OPT::run()
 {
     int PF = 0;
     // Store the pages currently in frames.
-    std::vector<int> frames;
+    std::vector<page_t> frames;
     // Set to quickly check if a page is in frames.
-    std::unordered_set<int> pages_in_frames;
+    std::unordered_set<page_t> pages_in_frames;
 
     // Go through each page in the references.
     for (std::size_t i = 0; i < references.size(); ++i)
     {
-        int page = references[i];
+        page_t page = references[i];
 
         // If page is not already mapped
         if (pages_in_frames.find(page) == pages_in_frames.end())

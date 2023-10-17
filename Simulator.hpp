@@ -1,11 +1,11 @@
+#include "SubstitutionAlgorithm.hpp"
 #include <string>
-#include <vector>
 
 class Simulator
 {
 private:
     // page references on the program
-    std::vector<int> access_order;
+    std::vector<page_t> access_order;
     // fisic memory capacity
     int Nframes;
 

@@ -1,9 +1,9 @@
 #include "Simulator.hpp" // already includes <vector>
 #include <iostream>
-#include "SubstitutionAlgorithm.hpp"
 #include "OPT.hpp"
 #include "LRU.hpp"
 #include "FIFO.hpp"
+// SubstitutionAlgorithm,
 // string and vector includes
 // are already on Simulator.hpp
 
@@ -11,7 +11,7 @@ Simulator::Simulator(int num_frames)
 {
     Nframes = num_frames;
 
-    int page;
+    page_t page;
     while (!feof(stdin))
     {
         std::cin >> page;

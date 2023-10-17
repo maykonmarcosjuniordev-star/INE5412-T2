@@ -2,17 +2,17 @@
 #include <unordered_map>
 #include <list>
 
-LRU::LRU(const std::vector<int> &refs, int num_frames)
+LRU::LRU(const std::vector<page_t> &refs, int num_frames)
     : SubstitutionAlgorithm(refs, num_frames) {}
 
 int LRU::run()
 {
     // Page Faults
     int PF = 0;
-    std::unordered_map<int, std::list<int>::iterator> page_table;
-    std::list<int> page_list;
+    std::list<page_t> page_list;
+    std::unordered_map<page_t, std::list<page_t>::iterator> page_table;
 
-    for (int page : references)
+    for (page_t page : references)
     {
         // if page is not already mapped
         if (page_table.find(page) == page_table.end())
@@ -24,7 +24,7 @@ int LRU::run()
             if (static_cast<int>(page_table.size()) == Nframes)
             {
                 // take the last page on the list
-                int lru_page = page_list.back();
+                page_t lru_page = page_list.back();
                 // erase from both page_table and page_list
                 page_list.pop_back();
                 page_table.erase(lru_page);
