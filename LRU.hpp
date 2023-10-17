@@ -1,23 +1,17 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <list>
+#ifndef LRU_HPP
+#define LRU_HPP
 
-using namespace std;
+// already inlcudes <vector>
+#include "SubstitutionAlgorithm.hpp"
 
-class LRU
+class LRU : public SubstitutionAlgorithm
 {
-private:
-    // page references
-    std::vector<int> references;
-    // number of frames
-    int Nframes;
-
 public:
-    LRU(vector<int> refs, int frames);
-
+    LRU(const std::vector<int> &refs, int num_frames);
     // simulate LRU algorithm
     // Return the total number
     // of page faults.
-    int run();
+    int run() override;
 };
+
+#endif // LRU_HPP

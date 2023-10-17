@@ -1,20 +1,16 @@
-#include "LRU.hpp"
-#include <vector>
+#include "LRU.hpp" // already includes <vector>
 #include <unordered_map>
 #include <list>
 
-LRU::LRU(vector<int> refs, int frames)
-{
-    references = refs;
-    Nframes = frames;
-}
+LRU::LRU(const std::vector<int> &refs, int num_frames)
+    : SubstitutionAlgorithm(refs, num_frames) {}
 
 int LRU::run()
 {
     // Page Faults
     int PF = 0;
-    unordered_map<int, list<int>::iterator> page_table;
-    list<int> page_list;
+    std::unordered_map<int, std::list<int>::iterator> page_table;
+    std::list<int> page_list;
 
     for (int page : references)
     {

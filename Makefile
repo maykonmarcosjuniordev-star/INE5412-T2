@@ -19,13 +19,13 @@ main.o : main.cpp Simulator.hpp
 Simulator.o: Simulator.cpp Simulator.hpp OPT.hpp FIFO.hpp LRU.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-OPT.o: OPT.cpp OPT.hpp
+OPT.o: OPT.cpp OPT.hpp SubstitutionAlgorithm.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-FIFO.o: FIFO.cpp FIFO.hpp
+FIFO.o: FIFO.cpp FIFO.hpp SubstitutionAlgorithm.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-LRU.o: LRU.cpp LRU.hpp
+LRU.o: LRU.cpp LRU.hpp SubstitutionAlgorithm.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

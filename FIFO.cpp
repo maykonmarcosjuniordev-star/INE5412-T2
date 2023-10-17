@@ -1,14 +1,9 @@
 #include "FIFO.hpp" // already inlcudes <vector>
-#include <queue>
 #include <unordered_set>
-#include <iostream>
+#include <queue>
 
-FIFO::FIFO(const std::vector<int> &refs,
-           int num_frames)
-{
-    references = refs;
-    Nframes = num_frames;
-}
+FIFO::FIFO(const std::vector<int> &refs, int num_frames)
+    : SubstitutionAlgorithm(refs, num_frames) {}
 
 int FIFO::run()
 {

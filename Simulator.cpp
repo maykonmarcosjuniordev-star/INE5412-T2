@@ -1,5 +1,6 @@
-#include "Simulator.hpp"
+#include "Simulator.hpp" // already includes <vector>
 #include <iostream>
+#include "SubstitutionAlgorithm.hpp"
 #include "OPT.hpp"
 #include "LRU.hpp"
 #include "FIFO.hpp"
@@ -23,28 +24,30 @@ Simulator::Simulator(int num_frames)
 
 int Simulator::run(std::string algorithm)
 {
+    SubstitutionAlgorithm *algo = nullptr;
+
     if (algorithm == "OPT")
     {
-        OPT opt(access_order, Nframes);
-        return opt.run();
+        algo = new OPT(access_order, Nframes);
     }
     else if (algorithm == "LRU")
     {
-        LRU lru(access_order, Nframes);
-        return lru.run();
+        algo = new LRU(access_order, Nframes);
     }
     else if (algorithm == "FIFO")
     {
-        FIFO fifo(access_order, Nframes);
-        return fifo.run();
+        algo = new FIFO(access_order, Nframes);
     }
     else
     {
         std::cerr << "Unknown Algorithm: " << algorithm << std::endl;
         return -1;
     }
-}
 
+    int result = algo->run();
+    delete algo; // Clean up the dynamically allocated memory.
+    return result;
+}
 void Simulator::simulate(std::string algorithm)
 {
     int PF = run(algorithm);
@@ -61,9 +64,4 @@ void Simulator::parameters()
 {
     std::cout << Nframes << " quadros\n";
     std::cout << access_order.size() << " refs\n";
-}
-
-void Simulator::set_Nframes(int num_frames)
-{
-    Nframes = num_frames;
 }

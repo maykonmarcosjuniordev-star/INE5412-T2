@@ -1,13 +1,8 @@
 #include "OPT.hpp"
-#include <unordered_map>
 #include <unordered_set>
-#include <iostream>
 
 OPT::OPT(const std::vector<int> &refs, int num_frames)
-{
-    references = refs;
-    Nframes = num_frames;
-}
+    : SubstitutionAlgorithm(refs, num_frames) {}
 
 int OPT::find_next_use(int page, int current_pos)
 {

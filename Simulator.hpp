@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+
 class Simulator
 {
 private:
@@ -17,12 +18,11 @@ public:
     // read the page references from stdin
     Simulator(int num_frames);
 
+    ~Simulator(){};
+
     // run the simulation for the given algorithm
     void simulate(std::string algorithm);
 
     // print number of frames and references
     void parameters();
-
-    // set the number of frames
-    void set_Nframes(int num_frames);
 };

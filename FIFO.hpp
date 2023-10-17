@@ -1,18 +1,17 @@
-#include <vector>
+#ifndef FIFO_HPP
+#define FIFO_HPP
 
-class FIFO
+// already inlcudes <vector>
+#include "SubstitutionAlgorithm.hpp"
+
+class FIFO : public SubstitutionAlgorithm
 {
-private:
-    // page references
-    std::vector<int> references;
-    // number of frames
-    int Nframes;
-
 public:
     FIFO(const std::vector<int> &refs, int num_frames);
-
     // simulate the FIFO algorithm
     // Return the total number
     // of page faults.
-    int run();
+    int run() override;
 };
+
+#endif // FIFO_HPP
