@@ -1,6 +1,6 @@
 # Variables for the compiler
 CC = g++
-CFLAGS = -Wall -Wextra -Werror -O
+CFLAGS = -Wall -Wextra -Werror -O3 -funroll-loops -flto
 
 # Name of the executable
 TARGET = simulador
